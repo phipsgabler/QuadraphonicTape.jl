@@ -32,28 +32,35 @@ should transform into something like
 ```
 1: (%1, %4, %2, %3)
   %5 = quoted(%4, Arg, :(%1), %1)
-  %6 = quoted(%4, Arg, :(%2), %2)
-  %7 = quoted(%4, Arg, :(%3), %3)
-  %8 = quoted(%4, Const, Main.rand)
-  %9 = overdub(%4, Call, %8)
-  %10 = quoted(%4, Const, <)
-  %11 = overdub(%4, Call, %10, %9, %7) 
-  %12 = quoted(%4, CondBranch, 2, %11)
-  %13 = quoted(%4, Return, %6)
-  br 2 (%12) unless %11
-  br 3 (%13)
-2 (%14):
-  %15 = quoted(%4, Arg, :(%14), %14)
-  %16 = quoted(%4, Const, +)
-  %17 = quoted(%4, Const, 1)
-  %18 = overdub(%4, Call, %16, %6, %17)
-  %19 = quoted(%4, Const, Main.geom)
-  %20 = overdub(%4, Call, %19, %18, %7)
-  %21 = quoted(%4, Return, %20)
-  br 3 (%21)
-3 (%22):
-  %22 = overdub(%4, Return, %22)
-  return %22
+  %6 = overdub(%4, %5)
+  %7 = quoted(%4, Arg, :(%2), %2)
+  %8 = overdub(%4, %7)
+  %9 = quoted(%4, Arg, :(%3), %3)
+  %10 = overdub(%4, %9)
+  %11 = quoted(%4, Const, Main.rand)
+  %12 = quoted(%4, Call, :(%4), %11)
+  %13 = overdub(%4, %12)
+  %14 = quoted(%4, Const, <)
+  %15 = quoted(%4, Call, :(%5), %14, %12, %9) 
+  %16 = overdub(%4, %15)
+  %17 = quoted(%4, CondBranch, 2, %15)
+  %18 = quoted(%4, Return, %7)
+  br 2 (%17) unless %16
+  br 3 (%18)
+2: (%19)
+  %20 = overdub(%4, 19)
+  %21 = quoted(%4, Const, +)
+  %22 = quoted(%4, Const, 1)
+  %23 = quoted(%4, Call, :(%6), %21, %7, %22)
+  %24 = overdub(%4, %23)
+  %25 = quoted(%4, Const, Main.geom)
+  %26 = quoted(%4, Call, :(%7), %25, %23, %9)
+  %27 = overdub(%4, %26)
+  %28 = quoted(%4, Return, %27)
+  br 3 (%28)
+3 (%29):
+  %30 = overdub(%4, %29)
+  return %30
 ```
 
 where `%4` is the context object.
